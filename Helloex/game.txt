@@ -1,0 +1,77 @@
+import android.app.Activity;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+import android.widget.Button;
+
+public class MyActivity extends Activity implements View.OnClickListener {
+	bool turn = 0;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+	Button[][] buttons;
+	buttons = new Button[4][4];
+	for(int i = 0; i < 4; i++)
+		for(int j = 0; j < 4; j++)
+			String str = "button"  + i.toString + j.toString;
+			buttons[i][j] = (Button)findViewById(R.id.str);	
+        button.setOnClickListener(this);
+    }
+
+    public void onClick(View v) {
+
+           if( v instanceof Button) {
+		for(int i = 0; i < 4; i++){
+			for(int j = 0; j < 4; j++){
+				String str = "button" + i.toString + j.toString;
+				if(R.id.str == v.getId){
+					Button buttons[i][j] = (Button) v;
+					if(button[i][j].getBackgroundColor() !=  Color.WHITE){
+						i = 4;
+						break;
+					}
+					if(turn == 0 ){
+						button[i][j].setBackgroundColor(Color.GREEN);						
+					}
+					if(turn == 1){
+						button[i][j].setBackgroundColor(Color.RED);						
+					}
+					turn = 1 - turn;
+					int kl = i - 1;
+					if(kl < 0)
+						kl = 0;
+
+					int km = i + 1;
+					if(kl > 3)
+						kl = 3;
+
+					int fl = j - 1;
+					if(kl < 0)
+						kl = 0;
+
+					int fm = i + 1;
+					if(kl > 3)
+						kl = 3;
+					for(int k = kl; k < km; k++)
+						for(int f = fl; f < fm; f++)
+							if(button[i][j].getBackgroundColor() == button[k][f].getBackgroundColor() && (i != k || j != f) && 2 * k - i >= 0 && 2 * k - i < 4 && 2 * f - j > -1 && 2 * f - j < 4)
+								if(button[i][j].getBackgroundColor() == button[2 * k - i][2 * f - j].getBackgroundColor()){
+									TextView textHello = (TextView) findViewById(R.id.textView);
+									textHello.setText("Winner: Player" + turn );
+									exit(0);
+								}
+									
+										
+				}
+
+
+				
+			}
+
+		}	   
+		
+			
+            }
+    }
+}
