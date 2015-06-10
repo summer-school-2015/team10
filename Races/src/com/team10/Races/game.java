@@ -44,10 +44,10 @@ public class game extends Activity implements SensorEventListener/* View.OnTouch
         car = new CarModel(this);
         FrameLayout.LayoutParams imageViewLayoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         car.setLayoutParams(imageViewLayoutParams);
-        car.changexy(1000, 500);
+        car.changexy(0, 700);
         //main.addView(car);
         w = new objects(this);
-        Walls = new objects[30];
+
         w.setLayoutParams(imageViewLayoutParams);
         w.changexy(rand.nextInt(1920), 0);
         main.addView(w);
@@ -58,10 +58,10 @@ public class game extends Activity implements SensorEventListener/* View.OnTouch
 
     }
     public void onSensorChanged(SensorEvent event) {
-        if(w.changexy(0, 100) == 1 || w.gety() == car.gety());
+        if(w.changexy(0, 100) == 1 && (car.gety() >= w.gety() && car.gety() <= w.gety() + 200))
             finish();
 
-        float a = event.values[0];
+        float a =  - 10 * event.values[0];
         car.changexy(a, 0);
         w.invalidate();
         car.invalidate();

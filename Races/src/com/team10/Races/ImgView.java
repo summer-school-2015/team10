@@ -10,6 +10,8 @@ import android.graphics.Canvas;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import java.util.Random;
+
 /**
  * Created by User on 10/06/2015.
  */
@@ -19,6 +21,7 @@ public class ImgView extends ImageView {
     FrameLayout main = (FrameLayout)findViewById(R.id.game);
     public float sy = 0;
     public Bitmap bmp;
+    Random rand = new Random();
     protected void onDraw(Canvas canvas) {
 
     }
@@ -28,7 +31,8 @@ public class ImgView extends ImageView {
         sx = sx % 480;
 
         sy += y;
-        if(sy == sy % 800){
+        if(sy == sy % 700){
+            sx = rand.nextInt(280);
           return 0;
         }
         sy = sy % 800;
@@ -36,6 +40,6 @@ public class ImgView extends ImageView {
 
     }
     public float gety(){
-        return sy;
+        return sx;
     }
 }
