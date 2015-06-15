@@ -16,7 +16,7 @@ public class CarModel extends ImgView{
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.car1);
         canvas.drawBitmap(bmp, sx, sy, null);
     }
 

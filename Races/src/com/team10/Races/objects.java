@@ -15,7 +15,7 @@ public class objects extends ImgView{
     }
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.stena);
-        canvas.drawBitmap(bmp, 50 + sx, 50 + sy, null);
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.car3);
+        canvas.drawBitmap(bmp, sx, sy, null);
     }
 }

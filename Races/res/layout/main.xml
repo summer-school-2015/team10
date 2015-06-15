@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:background="@drawable/bg" android:weightSum="1"
         >
     <Button
-            android:layout_width="291dp"
+            android:layout_width="295dp"
             android:layout_height="wrap_content"
             android:text="Start"
-            android:id="@+id/button" android:layout_gravity="center_horizontal" android:layout_weight="0.29" android:onClick="toGame"/>
+            android:id="@+id/button" android:layout_gravity="center_horizontal" android:layout_weight="0.04" android:onClick="toGame"
+            android:background="#ffe0ded4" android:layout_below="@+id/textView2" android:layout_alignParentLeft="true"
+            android:layout_marginTop="56dp" android:layout_alignParentRight="true"/>
     <Button
-            android:layout_width="299dp"
-            android:layout_height="wrap_content"
-            android:text="Settings"
-            android:id="@+id/button2" android:layout_gravity="center_horizontal" android:layout_weight="0.27" android:onClick="toGame"/>/>
-    <Button
-            android:layout_width="279dp"
+            android:layout_width="292dp"
             android:layout_height="wrap_content"
             android:text="Exit"
-            android:id="@+id/button3" android:layout_gravity="center_horizontal" android:layout_weight="0.29" android:onClick="Exit_on_click"/>
-</LinearLayout>
+            android:id="@+id/button3" android:layout_gravity="center_horizontal" android:onClick="Exit_on_click"
+            android:layout_weight="0.04"
+            android:background="#ffe0ded4"
+            android:layout_below="@+id/button2" android:layout_alignParentLeft="true" android:layout_marginTop="84dp"
+            android:layout_alignParentRight="true"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:id="@+id/button2"
+            android:background="#ffe0ded4" android:layout_below="@+id/button" android:layout_alignParentLeft="true"
+            android:layout_marginTop="91dp" android:layout_alignParentRight="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Race"
+            android:id="@+id/textView2" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+            android:textSize="50dp"/>
+</RelativeLayout>
 

@@ -1,19 +1,16 @@
 package com.team10.Races;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.content.res.AssetManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.*;
 
+import java.io.*;
 import java.util.Random;
 
 /**
@@ -27,10 +24,13 @@ public class game extends Activity implements SensorEventListener/* View.OnTouch
     Sensor accel;
     private int mX;
     private int mY;
+    int width, height;
     objects[] Walls;
-    objects w;
+    objects w, v;
     Random rand = new Random();
-
+    FrameLayout main;
+    int flag = 0;
+    int i = 0;
 
     CarModel car;
     public void onCreate(Bundle savedInstanceState) {
@@ -40,17 +40,38 @@ public class game extends Activity implements SensorEventListener/* View.OnTouch
         accel = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sm.registerListener(this,accel,SensorManager.SENSOR_DELAY_NORMAL);
 
-        FrameLayout main = (FrameLayout)findViewById(R.id.game);
+        main = (FrameLayout)findViewById(R.id.game);
+        main.post(new Runnable() {
+            @Override
+            public void run() {
+                width = main.getMeasuredWidth();
+                height = main.getMeasuredHeight();
+
+            }
+        });
+        //text
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader("HighScore.txt"));
+            String line = reader.readLine();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        //text ends
         car = new CarModel(this);
         FrameLayout.LayoutParams imageViewLayoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         car.setLayoutParams(imageViewLayoutParams);
-        car.changexy(0, 700);
         //main.addView(car);
         w = new objects(this);
-
+        v = new objects(this);
         w.setLayoutParams(imageViewLayoutParams);
-        w.changexy(rand.nextInt(1920), 0);
+        v.setLayoutParams(imageViewLayoutParams);
         main.addView(w);
+
         main.addView(car);
 
 
@@ -58,11 +79,32 @@ public class game extends Activity implements SensorEventListener/* View.OnTouch
 
     }
     public void onSensorChanged(SensorEvent event) {
-        if(w.changexy(0, 100) == 1 && (car.gety() >= w.gety() && car.gety() <= w.gety() + 200))
+        TextView score = (TextView) findViewById(R.id.textView);
+        int q = main.getHeight();
+        int e = car.getHeight();
+        if(flag == 0){car.changexy(0, main.getHeight() - 100, main);
+            w.changexy(rand.nextInt(main.getWidth() - 50), 0, main);
+
+            flag = 1;
+        }
+
+        if(i == 25){
+            v.changexy(rand.nextInt(main.getWidth() - 50), 0, main);
+            main.addView(v);}
+        i++;
+        if(i >= 25)
+            v.changexy(0, 10, main);
+        w.changexy(0, 10, main);
+        score.setText("Score: " + String.valueOf(i));
+        if((car.getx() >= w.getx() - 50 && car.getx() <= w.getx() + 50) && (car.gety() >= w.gety() && car.gety() <= w.gety() + 100)) {
+            finish();
+        }
+        if((car.getx() >= v.getx() -  50 && car.getx() <= v.getx() + 50) && (car.gety() >= v.gety() && car.gety() <= v.gety() + 100))
             finish();
 
+
         float a =  - 10 * event.values[0];
-        car.changexy(a, 0);
+        car.changexy(a, 0, main);
         w.invalidate();
         car.invalidate();
     }
@@ -76,9 +118,7 @@ public class game extends Activity implements SensorEventListener/* View.OnTouch
     public void toGame(View v){setContentView(R.layout.game);}
     public void toMenu(View v){setContentView(R.layout.main);}
     public void Exit_on_click(View v){finish();}
-    public void Move_on_click(View v){w.changexy(0, 100);
-        w.invalidate();
-      }
+
 
     }
 

@@ -17,29 +17,32 @@ import java.util.Random;
  */
 public class ImgView extends ImageView {
     public ImgView(Context cnt){ super(cnt);}
-    public float sx = 0;
-    FrameLayout main = (FrameLayout)findViewById(R.id.game);
-    public float sy = 0;
+    public int sx = 0;
+    public int sy = 0;
     public Bitmap bmp;
     Random rand = new Random();
     protected void onDraw(Canvas canvas) {
 
     }
-    public int changexy(float x, float y)
+    public int changexy(float x, float y, FrameLayout main)
     {
-        sx += x;
-        sx = sx % 480;
+        sx += (int)x;
+        int i = main.getWidth();
+        sx = sx % main.getWidth();
+        if(sx + 50 < 0)
+            sx = main.getWidth();
 
-        sy += y;
-        if(sy == sy % 700){
-            sx = rand.nextInt(280);
+        sy += (int)y;
+        if(sy != sy % (main.getHeight())){
+            sx = rand.nextInt(main.getWidth());
+            sy = sy % main.getHeight();
           return 0;
         }
-        sy = sy % 800;
+
         return 1;
 
     }
-    public float gety(){
-        return sx;
+    public float getx(){return sx;}
+    public float gety(){return sy;
     }
 }
